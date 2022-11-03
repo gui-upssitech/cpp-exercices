@@ -35,6 +35,8 @@ bool Tableau::ajouter(std::string nom, std::string numero) {
 }
 
 void Tableau::supprimer(std::string nom, std::string numero) {
+    // On subsitiue les éléments à supprimer par le dernier élément de la liste, 
+    // puis on diminue le nombre d'éléments présents dans la liste
     for (int i = 0; i < nb_elem; i++) {
         if(entrees[i].get_nom() == nom && entrees[i].get_numero() == numero) {
             entrees[i] = entrees[--nb_elem];
