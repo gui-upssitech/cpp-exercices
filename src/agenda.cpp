@@ -1,4 +1,5 @@
 #include "agenda.h"
+#include <iostream>
 
 // Constructor
 Agenda::Agenda(int taille): tableau(taille) {}
@@ -41,4 +42,78 @@ Agenda Agenda::concat(Agenda &agenda) {
 
     // On retourne la concaténation des deux agendas
     return agenda_concat;
+}
+
+// Opérateurs
+// ==================================================
+
+ostream& operator<<(ostream& out, Agenda& agenda) {
+    out << agenda.tableau;
+    return out;
+}
+
+Agenda operator+(Agenda ag, Entree entree) {
+    ag.ajouter(entree.get_nom(), entree.get_numero());
+    return Agenda(ag);
+}
+
+Agenda operator+=(Agenda& ag, Entree entree) {
+    ag.ajouter(entree.get_nom(), entree.get_numero());
+    return ag;
+}
+
+Agenda Agenda::operator=(Agenda& ag) {
+    return Agenda(ag);
+}
+
+Agenda Agenda::operator+(Agenda& ag) {
+    return this->concat(ag);
+}
+
+Agenda Agenda::operator+=(Agenda& ag) {
+    return this->concat(ag);
+}
+
+Entree Agenda::operator[](string nom) {
+    for(int i = 0; i < tableau.get_nb_elem(); i++) {
+        if(tableau[i].get_nom() == nom) return tableau[i];
+    }
+    return Entree();
+}
+
+Agenda operator-(Agenda ag, string nom) {
+    ag.supprimer(nom);
+    return ag;
+}
+
+Agenda operator-=(Agenda& ag, string nom) {
+    ag.supprimer(nom);
+    return ag;
+}
+
+bool Agenda::operator==(Agenda& ag) {
+    return tableau == ag.tableau;
+}
+
+bool Agenda::operator!=(Agenda& ag) {
+    return tableau != ag.tableau;
+}
+
+bool operator/(string nom, Agenda& ag) {
+    for(int i = 0; i < ag.tableau.get_nb_elem(); i++) {
+        if(ag.tableau[i].get_nom() == nom) return true;
+    }
+    return false;
+}
+
+string* Agenda::operator()(char c) {
+    string* res = new string[tableau.get_nb_elem() + 1];
+    int j = 0;
+
+    for(int i = 0; i < tableau.get_nb_elem(); i++) {
+        if(tableau[i].get_nom().at(0) == c) res[j++] = tableau[i].get_nom();
+    }
+    res[j] = "";
+
+    return res;
 }

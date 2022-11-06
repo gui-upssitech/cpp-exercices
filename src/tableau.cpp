@@ -54,10 +54,7 @@ void Tableau::supprimer(std::string nom) {
 }
 
 void Tableau::afficher() {
-    cout << "Tableau" << endl;
-    for (int i = 0; i < nb_elem; i++) {
-        entrees[i].afficher();
-    }
+    cout << *this;
 }
 
 // Getters
@@ -72,4 +69,31 @@ int Tableau::get_taille() {
 
 Entree Tableau::get(int i) {
     return this->entrees[i];
+}
+
+ostream& operator<<(ostream& out, const Tableau& t) {
+    out << "Tableau" << endl;
+    for (int i = 0; i < t.nb_elem; i++) {
+        out << t.entrees[i] << endl;
+    }
+    return out;
+}
+
+bool Tableau::operator==(Tableau& t) {
+    if(taille != t.taille) return false;
+    if(nb_elem != t.nb_elem) return false;
+
+    for(int i = 0; i < nb_elem; i++) {
+        if(entrees[i] != t.entrees[i]) return false;
+    }
+
+    return true;
+}
+
+bool Tableau::operator!=(Tableau& t) {
+    return !(*this == t);
+}
+
+Entree Tableau::operator[](int i) {
+    return entrees[i];
 }

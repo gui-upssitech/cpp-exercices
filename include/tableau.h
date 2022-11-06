@@ -22,6 +22,11 @@ public:
     int get_nb_elem();
     int get_taille();
     Entree get(int i);
+
+    friend ostream& operator<<(ostream& out, const Tableau& t);
+    Entree operator[](int i);
+    bool operator==(Tableau& t);
+    bool operator!=(Tableau& t);
 };
 
 

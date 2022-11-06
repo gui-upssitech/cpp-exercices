@@ -13,7 +13,7 @@ Entree::Entree(string nom, string numero) {
 }
 
 void Entree::afficher() {
-    cout << "nom: " << nom << ", numéro: " << numero << endl;
+    cout << *this;
 }
 
 string Entree::get_nom() {
@@ -22,4 +22,19 @@ string Entree::get_nom() {
 
 string Entree::get_numero() {
     return this->numero;
+}
+
+// Opérateurs
+
+ostream& operator<<(ostream& out, const Entree& e) {
+    out << "nom: " << e.nom << ", numéro: " << e.numero;
+    return out;
+}
+
+bool Entree::operator==(Entree& e) {
+    return this->nom == e.nom && this->numero == e.numero;
+}
+
+bool Entree::operator!=(Entree& e) {
+    return !(*this == e);
 }

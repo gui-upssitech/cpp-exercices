@@ -18,6 +18,10 @@ public:
 
     string get_nom();
     string get_numero();
+
+    friend ostream& operator<<(ostream& out, const Entree& e);
+    bool operator==(Entree& e);
+    bool operator!=(Entree& e);
 };
 
 
